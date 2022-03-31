@@ -5,6 +5,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>financial-statements</module>
+        <module>raw-sheet-downloader</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
