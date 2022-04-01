@@ -1,8 +1,8 @@
 package chenjie.stock.raw.sheet.downloader;
 
-import chenjie.stock.raw.sheet.downloader.service.BalanceRawSheetDownloadService;
-import chenjie.stock.raw.sheet.downloader.service.CashFlowRawSheetIncomeService;
-import chenjie.stock.raw.sheet.downloader.service.IncomeRawSheetDownloadService;
+import chenjie.stock.raw.sheet.downloader.domain.SheetType;
+import chenjie.stock.raw.sheet.downloader.service.RawSheetDownloadService;
+import chenjie.stock.raw.sheet.downloader.service.RawSheetDownloadServiceFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,11 +12,8 @@ public class MainApplication {
         String propertiesFile = "application.properties";
         InputStream inputstream = Thread.currentThread().getContextClassLoader().getResourceAsStream(propertiesFile);
         System.getProperties().load(inputstream);
-        BalanceRawSheetDownloadService balanceRawSheetDownloadService = new BalanceRawSheetDownloadService();
-        balanceRawSheetDownloadService.downloadAllSheets();
-        CashFlowRawSheetIncomeService cashFlowRawSheetIncomeService = new CashFlowRawSheetIncomeService();
-        cashFlowRawSheetIncomeService.downloadAllSheets();
-        IncomeRawSheetDownloadService incomeRawSheetDownloadService = new IncomeRawSheetDownloadService();
-        incomeRawSheetDownloadService.downloadAllSheets();
+        RawSheetDownloadServiceFactory factory = new RawSheetDownloadServiceFactory();
+        RawSheetDownloadService service = factory.getService(SheetType.BALANCE);
+        service.downloadAllSheets();
     }
 }
