@@ -1,4 +1,4 @@
-package chenjie.stock.common.infrastructure.dao;
+package chenjie.stock.common.infrastructure.dao.statements;
 
 import chenjie.stock.common.domain.Record;
 import chenjie.stock.common.infrastructure.hbase.HBaseStore;
@@ -10,14 +10,13 @@ import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component
 public abstract class AbstractStatementsDaoImpl implements StatementsDao {
 
     @Autowired
@@ -80,15 +79,22 @@ public abstract class AbstractStatementsDaoImpl implements StatementsDao {
         String rowKey = code + ROW_KEY_DELIMITER + record.getItem();
         Put put = new Put(Bytes.toBytes(rowKey));
         for (String date : record.getDateToValueMaps().keySet()) {
-            put.addColumn(getColumnFamilyInBytes(), getColumnInBytes(date), Bytes.toBytes(record.getDateToValueMaps().get(date)));
+            if (getColumnInBytes(date) != null) {
+                put.addColumn(getColumnFamilyInBytes(), getColumnInBytes(date), Bytes.toBytes(record.getDateToValueMaps().get(date)));
+            }
         }
         return put;
     }
 
     private byte[] getColumnInBytes(String date) {
-        String outputDate = DateTimeUtil.convertDate(date, DATE_PATTERN);
-        String col = String.valueOf(Integer.parseInt(DATE_LIMIT) - Integer.parseInt(outputDate));
-        return Bytes.toBytes(col);
+        try {
+            String outputDate = DateTimeUtil.convertDate(date, DATE_PATTERN);
+            String col = String.valueOf(Integer.parseInt(DATE_LIMIT) - Integer.parseInt(outputDate));
+            return Bytes.toBytes(col);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private String getColumnInString(byte[] bytes) {

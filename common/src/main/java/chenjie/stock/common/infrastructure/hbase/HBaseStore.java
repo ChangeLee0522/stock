@@ -2,9 +2,9 @@ package chenjie.stock.common.infrastructure.hbase;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
@@ -18,13 +18,11 @@ import java.util.List;
 public class HBaseStore {
     private Connection connection;
 
-    @Autowired
-    private Configuration configuration;
-
     @PostConstruct
     public void init() {
         try {
-            connection = ConnectionFactory.createConnection(configuration);
+            Configuration conf = HBaseConfiguration.create();
+            connection = ConnectionFactory.createConnection(conf);
         } catch (IOException e) {
             log.error("Failed to create connection to HBase.", e);
         }

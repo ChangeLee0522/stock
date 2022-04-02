@@ -1,4 +1,4 @@
-package chenjie.stock.common.infrastructure.dao;
+package chenjie.stock.common.infrastructure.dao.statements;
 
 import chenjie.stock.common.domain.Record;
 
