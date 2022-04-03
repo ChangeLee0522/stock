@@ -1,11 +1,11 @@
-package chenjie.stock.common.infrastructure.dao.statements;
+package chenjie.stock.common.infrastructure.dao;
 
 import org.apache.hadoop.hbase.util.Bytes;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
-public class IncomeStatementsDao extends AbstractStatementsDaoImpl {
-    private static final String TABLE_NAME = "income_statements";
+@Repository
+public class IntradayPriceDao extends AbstractKeyAsIdFieldDaoImpl {
+    private static final String TABLE_NAME = "intraday_price";
     private static final String CF = "i";
     private static final byte[] CF_BYTES = Bytes.toBytes(CF);
 
