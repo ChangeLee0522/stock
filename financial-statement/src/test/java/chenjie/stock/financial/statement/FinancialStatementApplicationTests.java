@@ -1,10 +1,10 @@
-package chenjie.stock.financial.statements;
+package chenjie.stock.financial.statement;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FinancialStatementsApplicationTests {
+class FinancialStatementApplicationTests {
 
 	@Test
 	void contextLoads() {

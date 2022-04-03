@@ -1,4 +1,4 @@
-package chenjie.stock.financial.statements.controller;
+package chenjie.stock.financial.statement.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
