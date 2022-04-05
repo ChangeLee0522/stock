@@ -50,7 +50,7 @@ public class StatementLoaderService {
 
     private List<String> getDatesSubList(String sinceDate, List<String> dates) throws ParseException {
         int endDateIndex = dates.size();
-        for (int i = 0; i < dates.size(); i++) {
+        for (int i = 1; i < dates.size(); i++) {
             if (DateTimeUtil.compareDates(dates.get(i), sinceDate) < 0) {
                 endDateIndex = i;
                 break;
