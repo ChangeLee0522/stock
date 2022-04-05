@@ -8,7 +8,7 @@ import java.sql.Date;
 @Data
 @Builder
 public class StatementRecord {
-    private int code;
+    private String code;
     private String item;
     private Date date;
     private String value;

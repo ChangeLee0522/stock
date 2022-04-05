@@ -9,9 +9,9 @@ public interface StatementDao {
 
     void save(List<StatementRecord> statementRecords);
 
-    String get(int code, String item, String date);
+    String get(String code, String item, String date);
 
-    List<StatementRecord> get(List<Integer> codes, List<String> items, String fromDate, String toDate);
+    List<StatementRecord> get(List<String> codes, List<String> items, String fromDate, String toDate);
 
     List<StatementRecord> getAll();
 }

@@ -22,12 +22,12 @@ public abstract class AbstractStatementServiceImpl implements StatementService {
     }
 
     @Override
-    public String get(int code, String item, String date) {
+    public String get(String code, String item, String date) {
         return getDao().get(code, item, date);
     }
 
     @Override
-    public List<StatementRecord> get(List<Integer> codes, List<String> items, String fromDate, String toDate) {
+    public List<StatementRecord> get(List<String> codes, List<String> items, String fromDate, String toDate) {
         return getDao().get(codes, items, fromDate, toDate);
     }
 

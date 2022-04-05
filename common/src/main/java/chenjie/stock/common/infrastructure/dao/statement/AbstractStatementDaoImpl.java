@@ -34,7 +34,7 @@ public abstract class AbstractStatementDaoImpl implements StatementDao {
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 StatementRecord record = statementRecords.get(i);
-                ps.setInt(1, record.getCode());
+                ps.setString(1, record.getCode());
                 ps.setString(2, record.getItem());
                 ps.setDate(3, record.getDate());
                 ps.setString(4, record.getValue());
@@ -49,17 +49,17 @@ public abstract class AbstractStatementDaoImpl implements StatementDao {
     }
 
     @Override
-    public String get(int code, String item, String date) {
+    public String get(String code, String item, String date) {
         String sql = "SELECT value FROM " + getTableName() + " WHERE code = " + code + " AND item = " + item + " AND date = " + date + ";";
         return jdbcTemplate.queryForObject(sql, String.class);
     }
 
     @Override
-    public List<StatementRecord> get(List<Integer> codes, List<String> items, String fromDate, String toDate) {
+    public List<StatementRecord> get(List<String> codes, List<String> items, String fromDate, String toDate) {
         StringBuilder sql = new StringBuilder("SELECT * FROM " + getTableName());
         if (CollectionUtils.isNotEmpty(codes)) {
             appendCondition(sql);
-            sql.append("code IN (").append(String.join(",", (CharSequence) codes)).append(")");
+            sql.append("code IN (").append(String.join(",", codes)).append(")");
         }
         if (CollectionUtils.isNotEmpty(items)) {
             appendCondition(sql);
