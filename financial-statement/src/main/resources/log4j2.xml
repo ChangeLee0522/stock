@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration status="OFF" monitorInterval="30">
+<configuration>
 
     <!-- 日志文件目录、压缩文件目录、日志格式配置 -->
     <properties>
-        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} %5p -&#45;&#45; [%15.15t]
+        <property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} %5p -&#45;&#45; [%15.15t]
             [%X{X-B3-TraceId},%X{X-B3-SpanId},%X{X-B3-ParentSpanId},%X{X-Span-Export}] %-40.40c{1.} : %m%n%ex
-        </Property>
-        <Property name="LOG_FILE_PATH">/Users/lichenjie/Documents/project/stock/financial-statements/logs</Property>
-        <Property name="LOG_FILE_NAME">financial-statements</Property>
+        </property>
+        <property name="LOG_FILE_PATH">/Users/lichenjie/Documents/project/stock/financial-statement/logs</property>
+        <property name="LOG_FILE_NAME">statement</property>
     </properties>
 
     <Appenders>
         <!-- 输出控制台日志的配置 -->
-        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
-            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
-            <!-- <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>-->
-            <ThresholdFilter level="ALL"/>
-            <!-- 输出日志的格式 -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
 
         <!-- 打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档 -->
         <RollingFile name="FileAppender" fileName="${LOG_FILE_PATH}/${LOG_FILE_NAME}.log"
-                                 immediateFlush="false"
                                  filePattern="${LOG_FILE_PATH}/${LOG_FILE_NAME}-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>

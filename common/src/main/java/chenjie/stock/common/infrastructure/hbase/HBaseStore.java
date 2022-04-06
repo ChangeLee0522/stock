@@ -20,12 +20,12 @@ public class HBaseStore {
 
     @PostConstruct
     public void init() {
-        try {
-            Configuration conf = HBaseConfiguration.create();
-            connection = ConnectionFactory.createConnection(conf);
-        } catch (IOException e) {
-            log.error("Failed to create connection to HBase.", e);
-        }
+//        try {
+//            Configuration conf = HBaseConfiguration.create();
+//            connection = ConnectionFactory.createConnection(conf);
+//        } catch (IOException e) {
+//            log.error("Failed to create connection to HBase.", e);
+//        }
     }
 
     private Table getTable(String name) throws IOException {

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -27,6 +29,16 @@ public class StatementLoaderService {
     private StatementServiceFactory factory;
 
     private static final String CSV_DELIMITER = ",";
+
+    public void loadDataFromFilesInDirectory(String directory, String sinceDate) throws IOException {
+        Files.list(Paths.get(directory)).forEach(path -> {
+            try {
+                loadDataFromCsvFile(path.toFile().getAbsolutePath(), sinceDate);
+            } catch (IOException | ParseException e) {
+                log.error("Failed to load data from directory {}", directory);
+            }
+        });
+    }
 
     public void loadDataFromCsvFile(String filePath, String sinceDate) throws IOException, ParseException {
         File file = new File(filePath);
@@ -47,6 +59,8 @@ public class StatementLoaderService {
         StatementService statementService = factory.getStatementService(statementType);
         statementService.save(records);
     }
+
+
 
     private List<String> getDatesSubList(String sinceDate, List<String> dates) throws ParseException {
         int endDateIndex = dates.size();
