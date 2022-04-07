@@ -48,7 +48,7 @@ public class StatementControllerImpl implements StatementController {
     @Override
     public StatementResponse loadFromDirectory(String sinceDate, String directory) {
         int returnCode = ReturnCode.SUCCESS;
-        if (StringUtils.isEmpty(sinceDate)) {
+        if (StringUtils.isEmpty(directory)) {
             returnCode = ReturnCode.BAD_REQUEST;
         } else {
             log.info("Received request to load data from files in the direcotry {} since date {}", directory, sinceDate);

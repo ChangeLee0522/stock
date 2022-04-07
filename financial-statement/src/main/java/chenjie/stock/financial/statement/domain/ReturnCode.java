@@ -1,6 +1,5 @@
 package chenjie.stock.financial.statement.domain;
 
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,8 +10,7 @@ public class ReturnCode {
 
     private static Map<Integer, String> messageMap = new HashMap<>();
 
-    @PostConstruct
-    private void init() {
+    static {
         messageMap.put(SUCCESS, "Success.");
         messageMap.put(BAD_REQUEST, "Bad request, please check.");
         messageMap.put(INTERNAL_ERROR, "Internal server error.");

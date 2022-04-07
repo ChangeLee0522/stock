@@ -13,8 +13,8 @@ public interface StatementController {
     StatementResponse loadFromFiles(@RequestParam(required = false) String sinceDate,
                                     @RequestBody List<String> files);
 
-    @RequestMapping(value = "/load/directory", method = RequestMethod.POST)
+    @RequestMapping(value = "/load", method = RequestMethod.POST)
     @ResponseBody
     StatementResponse loadFromDirectory(@RequestParam(required = false) String sinceDate,
-                                        @RequestBody String directory);
+                                        @RequestParam String directory);
 }

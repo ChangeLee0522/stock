@@ -13,7 +13,13 @@ public class MainApplication {
         InputStream inputstream = Thread.currentThread().getContextClassLoader().getResourceAsStream(propertiesFile);
         System.getProperties().load(inputstream);
         RawSheetDownloadServiceFactory factory = new RawSheetDownloadServiceFactory();
-        RawSheetDownloadService service = factory.getService(SheetType.BALANCE);
-        service.downloadAllSheets();
+        RawSheetDownloadService service1 = factory.getService(SheetType.BALANCE);
+//        service1.downloadSheet("603619");
+//        service1.downloadAllSheets();
+        RawSheetDownloadService service2 = factory.getService(SheetType.CASH_FLOW);
+//        service2.downloadSheet("301008");
+//        service2.downloadAllSheets();
+        RawSheetDownloadService service3 = factory.getService(SheetType.INCOME);
+//        service3.downloadAllSheets();
     }
 }

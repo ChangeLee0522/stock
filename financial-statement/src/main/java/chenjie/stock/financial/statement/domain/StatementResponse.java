@@ -1,9 +1,9 @@
 package chenjie.stock.financial.statement.domain;
 
 import chenjie.stock.common.domain.StatementRecord;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Data;
-import org.apache.htrace.shaded.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
 

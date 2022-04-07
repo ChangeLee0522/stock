@@ -3,6 +3,7 @@ package chenjie.stock.raw.sheet.downloader.service;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
@@ -42,17 +43,18 @@ public abstract class AbstractRawSheetDownloadService implements RawSheetDownloa
             // opens input stream from the HTTP connection
             InputStream inputStream = httpConn.getInputStream();
             String saveFilePath = getFilePath() + File.separator + fileName;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "GBK"));
 
             // opens an output stream to save into file
             FileOutputStream outputStream = new FileOutputStream(saveFilePath);
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
 
-            int bytesRead;
-            byte[] buffer = new byte[BUFFER_SIZE];
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
+            int ch;
+            while ((ch = reader.read()) != -1) {
+                writer.write(ch);
             }
-            outputStream.close();
-            inputStream.close();
+            reader.close();
+            writer.close();
             System.out.println("File downloaded: " + fileName);
         } else {
             System.out.println("No file to download. Server replied HTTP code: " + responseCode);
