@@ -80,7 +80,7 @@ public class StatementLoaderService {
             String item = itemWithValues[0];
             log.info("Loading for item {} of code {}", item, code);
             for (int i = 1; i < dates.size(); i++) {
-                if(itemWithValues[i].equals("--")) {
+                if(itemWithValues[i].equals("--") || StringUtils.isBlank(itemWithValues[i]) || StringUtils.isBlank(dates.get(i))) {
                     continue;
                 }
                 StatementRecord record = StatementRecord.builder()
