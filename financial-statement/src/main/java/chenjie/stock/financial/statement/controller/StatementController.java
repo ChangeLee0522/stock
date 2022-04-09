@@ -21,7 +21,7 @@ public interface StatementController {
 
     @RequestMapping(value = "/query/{type}", method = RequestMethod.GET)
     @ResponseBody
-    String getValue(@PathVariable("type") String type,
+    Float getValue(@PathVariable("type") String type,
                                @RequestParam String code,
                                @RequestParam String item,
                                @RequestParam String date);

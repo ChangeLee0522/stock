@@ -22,7 +22,7 @@ public abstract class AbstractStatementServiceImpl implements StatementService {
     }
 
     @Override
-    public String get(String code, String item, String date) {
+    public Float get(String code, String item, String date) {
         return getDao().get(code, item, date);
     }
 

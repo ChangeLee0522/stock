@@ -13,7 +13,7 @@ public class StatementRecordRowMapper implements RowMapper<StatementRecord> {
                 .code(rs.getString(1))
                 .item(rs.getString(2))
                 .date(rs.getDate(3))
-                .value(rs.getString(4))
+                .value(rs.getFloat(4))
                 .build();
     }
 }

@@ -80,14 +80,15 @@ public class StatementLoaderService {
             String item = itemWithValues[0].trim();
             log.info("Loading for item {} of code {}", item, code);
             for (int i = 1; i < dates.size(); i++) {
-                if(itemWithValues[i].equals("--") || StringUtils.isBlank(itemWithValues[i]) || StringUtils.isBlank(dates.get(i))) {
+                String value = itemWithValues[i].trim();
+                if(value.contains("--") || StringUtils.isBlank(value) || StringUtils.isBlank(dates.get(i))) {
                     continue;
                 }
                 StatementRecord record = StatementRecord.builder()
                         .code(code)
                         .item(item)
                         .date(Date.valueOf(dates.get(i)))
-                        .value(itemWithValues[i])
+                        .value(Float.parseFloat(value))
                         .build();
                 records.add(record);
             }

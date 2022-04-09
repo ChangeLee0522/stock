@@ -11,5 +11,5 @@ public class StatementRecord {
     private String code;
     private String item;
     private Date date;
-    private String value;
+    private float value;
 }

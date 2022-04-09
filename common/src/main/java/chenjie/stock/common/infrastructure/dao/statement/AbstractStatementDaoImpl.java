@@ -38,7 +38,7 @@ public abstract class AbstractStatementDaoImpl implements StatementDao {
                 ps.setString(1, record.getCode());
                 ps.setString(2, record.getItem());
                 ps.setDate(3, record.getDate());
-                ps.setString(4, record.getValue());
+                ps.setFloat(4, record.getValue());
             }
 
             @Override
@@ -50,9 +50,9 @@ public abstract class AbstractStatementDaoImpl implements StatementDao {
     }
 
     @Override
-    public String get(String code, String item, String date) {
+    public Float get(String code, String item, String date) {
         String sql = "SELECT value FROM " + getTableName() + " WHERE code = \"" + code + "\" AND item = \"" + item + "\" AND date = \"" + date + "\";";
-        return jdbcTemplate.queryForObject(sql, String.class);
+        return jdbcTemplate.queryForObject(sql, Float.class);
     }
 
     @Override

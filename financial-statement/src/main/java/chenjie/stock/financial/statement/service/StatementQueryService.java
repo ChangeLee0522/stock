@@ -16,7 +16,7 @@ public class StatementQueryService {
     @Autowired
     private StatementServiceFactory factory;
 
-    public String getValue(StatementType type, String code, String item, String date) {
+    public Float getValue(StatementType type, String code, String item, String date) {
         StatementService service = factory.getStatementService(type.name());
         log.info("Querying value from table {} of {} - {} on {}", type.name(), code, item, date);
         return service.get(code, item, date);

@@ -9,7 +9,7 @@ public interface StatementService {
 
     void save(List<StatementRecord> statementRecords);
 
-    String get(String code, String item, String date);
+    Float get(String code, String item, String date);
 
     List<StatementRecord> get(List<String> codes, List<String> items, String fromDate, String toDate);
 

@@ -75,8 +75,8 @@ public class StatementControllerImpl implements StatementController {
     }
 
     @Override
-    public String getValue(String type, String code, String item, String date) {
-        String value = null;
+    public Float getValue(String type, String code, String item, String date) {
+        Float value = null;
         StatementType statementType = StatementType.valueOf(type);
         if (StringUtils.isNotEmpty(code) && StringUtils.isNotEmpty(item) && StringUtils.isNotEmpty(date)) {
             value = queryService.getValue(statementType, code, item, date);
