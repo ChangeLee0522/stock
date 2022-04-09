@@ -1,5 +1,6 @@
 package chenjie.stock.financial.statement.controller;
 
+import chenjie.stock.financial.statement.domain.StatementRequest;
 import chenjie.stock.financial.statement.domain.StatementResponse;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,4 +18,20 @@ public interface StatementController {
     @ResponseBody
     StatementResponse loadFromDirectory(@RequestParam(required = false) String sinceDate,
                                         @RequestParam String directory);
+
+    @RequestMapping(value = "/query/{type}", method = RequestMethod.GET)
+    @ResponseBody
+    String getValue(@PathVariable("type") String type,
+                               @RequestParam String code,
+                               @RequestParam String item,
+                               @RequestParam String date);
+
+    @RequestMapping(value = "/query/{type}", method = RequestMethod.PUT)
+    @ResponseBody
+    StatementResponse getValue(@PathVariable("type") String type,
+                               @RequestBody StatementRequest request);
+
+    @RequestMapping(value = "/queryall/{type}", method = RequestMethod.GET)
+    @ResponseBody
+    StatementResponse getValue(@PathVariable("type") String type);
 }

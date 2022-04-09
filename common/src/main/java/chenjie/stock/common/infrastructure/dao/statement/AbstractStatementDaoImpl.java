@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -50,7 +51,7 @@ public abstract class AbstractStatementDaoImpl implements StatementDao {
 
     @Override
     public String get(String code, String item, String date) {
-        String sql = "SELECT value FROM " + getTableName() + " WHERE code = " + code + " AND item = " + item + " AND date = " + date + ";";
+        String sql = "SELECT value FROM " + getTableName() + " WHERE code = \"" + code + "\" AND item = \"" + item + "\" AND date = \"" + date + "\";";
         return jdbcTemplate.queryForObject(sql, String.class);
     }
 
@@ -59,22 +60,30 @@ public abstract class AbstractStatementDaoImpl implements StatementDao {
         StringBuilder sql = new StringBuilder("SELECT * FROM " + getTableName());
         if (CollectionUtils.isNotEmpty(codes)) {
             appendCondition(sql);
-            sql.append("code IN (").append(String.join(",", codes)).append(")");
+            List<String> quotedCodes = addQuotes(codes);
+            sql.append("code IN (").append(String.join(",", quotedCodes)).append(")");
         }
         if (CollectionUtils.isNotEmpty(items)) {
             appendCondition(sql);
-            sql.append("item IN (").append(String.join(",", items)).append(")");
+            List<String> quotedItems = addQuotes(items);
+            sql.append("item IN (").append(String.join(",", quotedItems)).append(")");
         }
         if (StringUtils.isNotEmpty(fromDate)) {
             appendCondition(sql);
-            sql.append("date >= ").append(fromDate);
+            sql.append("date >= ").append("\"").append(fromDate).append("\"");
         }
         if (StringUtils.isNotEmpty(toDate)) {
             appendCondition(sql);
-            sql.append("date <= ").append(toDate);
+            sql.append("date <= ").append("\"").append(toDate).append("\"");
         }
         List<StatementRecord> ret = jdbcTemplate.query(sql.toString(), new StatementRecordRowMapper());
         log.info("Successfully query {} records from table {}.", ret.size(), getTableName());
+        return ret;
+    }
+
+    private List<String> addQuotes(List<String> strings) {
+        List<String> ret = new ArrayList<>(strings.size());
+        strings.forEach(s -> ret.add("\"" + s + "\""));
         return ret;
     }
 

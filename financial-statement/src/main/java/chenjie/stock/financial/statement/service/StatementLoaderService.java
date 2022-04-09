@@ -77,7 +77,7 @@ public class StatementLoaderService {
     private List<StatementRecord> getStatementRecords(String code, List<String> dates, List<String[]> itemWithValuesList) {
         List<StatementRecord> records = new ArrayList<>();
         for (String[] itemWithValues : itemWithValuesList) {
-            String item = itemWithValues[0];
+            String item = itemWithValues[0].trim();
             log.info("Loading for item {} of code {}", item, code);
             for (int i = 1; i < dates.size(); i++) {
                 if(itemWithValues[i].equals("--") || StringUtils.isBlank(itemWithValues[i]) || StringUtils.isBlank(dates.get(i))) {
