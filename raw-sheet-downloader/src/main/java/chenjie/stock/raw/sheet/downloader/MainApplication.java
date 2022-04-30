@@ -14,12 +14,12 @@ public class MainApplication {
         System.getProperties().load(inputstream);
         RawSheetDownloadServiceFactory factory = new RawSheetDownloadServiceFactory();
         RawSheetDownloadService service1 = factory.getService(SheetType.BALANCE);
-//        service1.downloadSheet("603619");
+        service1.downloadSheet("000004");
 //        service1.downloadAllSheets();
-        RawSheetDownloadService service2 = factory.getService(SheetType.CASH_FLOW);
+//        RawSheetDownloadService service2 = factory.getService(SheetType.CASH_FLOW);
 //        service2.downloadSheet("301008");
 //        service2.downloadAllSheets();
-        RawSheetDownloadService service3 = factory.getService(SheetType.INCOME);
+//        RawSheetDownloadService service3 = factory.getService(SheetType.INCOME);
 //        service3.downloadAllSheets();
     }
 }

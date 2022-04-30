@@ -15,12 +15,25 @@ public abstract class AbstractRawSheetDownloadService implements RawSheetDownloa
     protected abstract String getFilePath();
 
     private static final int BUFFER_SIZE = 4096;
+    private static final int RETRY_COUNT = 3;
 
     @Override
     public void downloadSheet(String code) throws IOException {
         String url = getURL().replace("XXXXXX", code);
         HttpURLConnection httpConn = (HttpURLConnection) new URL(url).openConnection();
         int responseCode = httpConn.getResponseCode();
+        int count = 0;
+        while (responseCode != HttpURLConnection.HTTP_OK) {
+            System.out.println("Server replied HTTP code: " + responseCode);
+            httpConn.disconnect();
+            if (++count <= 3) {
+                System.out.println("Retry download for " + code + " for the " + count + " time");
+                httpConn = (HttpURLConnection) new URL(url).openConnection();
+                responseCode = httpConn.getResponseCode();
+            } else {
+                break;
+            }
+        }
 
         // always check HTTP response code first
         if (responseCode == HttpURLConnection.HTTP_OK) {
